@@ -72,7 +72,8 @@ public class PizzaCreate {
                 pizza.getPrice(), 
                 pizza.getIngredients()
                     .stream()
-                    .map(i->new ResponseIngredient(i.getId(),i.getName()))              
+                    .map(i->new ResponseIngredient(i.getId(),i.getName())) 
+                    //.collect(Collectors.toSet())             
                 );    
 
             return ResponseEntity.status(201).body(response);
