@@ -9,6 +9,9 @@ public class Ingredient extends BaseEntity{
 
     private String name;
     private Double cost;
+    protected Ingredient(){
+        super();
+    }
     protected Ingredient(final UUID id ,String name, Double cost){ 
         super(id);
         this.name = name;

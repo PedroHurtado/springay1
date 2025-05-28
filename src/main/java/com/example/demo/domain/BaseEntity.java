@@ -9,6 +9,9 @@ import jakarta.persistence.MappedSuperclass;
 public abstract class BaseEntity {
     @Id
     private final UUID id;
+    protected BaseEntity(){
+        this(UUID.randomUUID());
+    }
     protected BaseEntity(final UUID id) {
         this.id = id;
     }

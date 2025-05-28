@@ -47,8 +47,11 @@ public class Pizza extends BaseEntity {
     private String url;
 
     @ManyToMany
-    private final Set<Ingredient> ingredients;
+    private Set<Ingredient> ingredients = new HashSet<>();
 
+    protected Pizza(){
+        super();
+    }
     protected Pizza(
             final UUID id,
             String name,
