@@ -4,6 +4,9 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToMany;
+
 
 /*
  * pizza={
@@ -36,11 +39,14 @@ la pizza permite agregar y eliminar ingredientes
  * 
  */
 
+@Entity
 public class Pizza extends BaseEntity {
     private static final Double PROFIT = 1.20D;
     private String name;
     private String description;
     private String url;
+
+    @ManyToMany
     private final Set<Ingredient> ingredients;
 
     protected Pizza(

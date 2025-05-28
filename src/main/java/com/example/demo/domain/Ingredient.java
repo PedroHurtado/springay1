@@ -2,6 +2,9 @@ package com.example.demo.domain;
 
 import java.util.UUID;
 
+import jakarta.persistence.Entity;
+
+@Entity
 public class Ingredient extends BaseEntity{
 
     private String name;

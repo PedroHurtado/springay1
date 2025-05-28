@@ -2,7 +2,12 @@ package com.example.demo.domain;
 
 import java.util.UUID;
 
+import jakarta.persistence.Id;
+import jakarta.persistence.MappedSuperclass;
+
+@MappedSuperclass
 public abstract class BaseEntity {
+    @Id
     private final UUID id;
     protected BaseEntity(final UUID id) {
         this.id = id;
