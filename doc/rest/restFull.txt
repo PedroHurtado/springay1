@@ -1,0 +1,224 @@
+https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/MIME_types
+
+pizza:{
+    id,
+    description,
+    name,
+    price,
+    ingredients:[{id,name,cost},{id,name,cost}]
+}
+
+Recurso->crear,modificar,leer,eliminar
+
+localhost:8080
+
+Cual sería la url para las pizzas
+
+/pizzas   Si->todas las urls deben de estar pluralizadas
+/pizza No
+
+No exponer formatos en la url
+    No
+    /pizzas.json
+    /pizzas.xml
+    Si
+    /pizzas
+    headers
+        Accept:application/json
+        Accept:application/xml
+No exponer acciones en la url
+    No                      Si
+    pizzas/add              POST
+    pizzas/update           PUT | PATCH
+    pizzas/remove           DELETE
+    pizzas/list             GET
+
+1. Crear
+
+Path                    /pizzas
+Verbo                   POST
+Header Request
+                        "content-type":"application/json"
+                        "accept":"application/json"
+Body Request
+                        {}->los atributos necesarios para crear la pizza
+Header Response
+                        "content-type":"application/json"
+Body Response
+                        {
+                            id,name,cost
+                        }
+Status
+
+OK                          ERROR
+201                         400-Bad Request | 409-Conflic
+                                {
+                                    attributo:[]
+                                }
+                            401-No autorizado
+                            403-Forbiden | 404-Not found
+                            500-Internal Server Error
+                                 retry
+                                 {retry:3, time:1000}
+                                 obras       
+
+02-update
+
+
+Path                    /pizzas/{id}
+Verbo                   PUT|PATCH
+Header Request
+                        "content-type":"application/json"
+                        "accept":"application/json"
+Body Request
+                        PUT->{...todo el recurso}
+                        PATCH->{partes del recurso}
+Header Response
+                        "content-type":"application/json"
+                        Si no cambia podrías obviar el envio de datos
+Body Response
+                        {
+                            id,name,cost
+                        }
+                        empty
+Status
+
+OK                          ERROR
+                            404-NotFound
+200                         400-Bad Request | 409-Conflic
+204(empty)                  {
+                                    attributo:[]
+                            }
+                            401-No autorizado
+                            403-Forbiden | 404-Not found
+                            500-Internal Server Error
+                                 retry
+                                 {retry:3, time:1000}
+                                 obras       
+
+03-remove
+
+
+Path                    /pizzas/{id}
+Verbo                   DELETE
+Header Request                        
+Body Request                        
+Header Response                        
+Body Response                        
+                        empty
+Status
+
+OK                          ERROR
+                            404-NotFound
+                            400-Bad Request | 409-Conflic
+204(empty)                  {
+                                    attributo:[]
+                            }
+                            401-No autorizado
+                            403-Forbiden | 404-Not found
+                            500-Internal Server Error
+                                 retry
+                                 {retry:3, time:1000}
+                                 obras       
+
+04-Get(Unico recurso)
+
+
+Path                    /pizzas/{id}
+Verbo                   GET
+Header Request             
+                        accept:"application/json"           
+Body Request                        
+Header Response                        
+                        "content-type":"application/json"
+Body Response                        
+                        {id,name,cost}
+Status
+
+OK                          ERROR
+                            404-NotFound
+                            400-Bad Request | 409-Conflic
+200                         {
+                                    attributo:[]
+                            }
+                            401-No autorizado
+                            403-Forbiden | 404-Not found
+                            500-Internal Server Error
+                                 retry
+                                 {retry:3, time:1000}
+                                 obras       
+
+04-Get(multiples recursos)
+
+
+Path                    /pizzas
+Verbo                   GET
+Header Request             
+                        accept:"application/json"           
+Body Request                        
+Header Response                        
+                        "content-type":"application/json"
+Body Response                        
+                        []
+Status
+
+OK                          ERROR                         
+                            400-Bad Request | 409-Conflic
+200                         {
+                                    attributo:[]
+                            }
+                            401-No autorizado
+                            403-Forbiden | 404-Not found
+                            500-Internal Server Error
+                                 retry
+                                 {retry:3, time:1000}
+                                 obras       
+
+QueryString
+/pizzas?name=t&page=1&size=25
+
+key     value
+name    t
+page    1
+size    25
+
+Ordenar->name asc
+Proyectar-> select * from tabla
+            select id,name from tabla
+
+/pizzas?name=t&page=1&size=25&order=name asc&attributes=id,name
+
+-Odata https://www.odata.org/
+-Olingo(java) https://olingo.apache.org/
+
+-Graphql https://graphql.org/
+
+
+@RestController
+	@RequestMaping
+		@GetMapping
+		@PostMapping
+		@PutMapping
+		@DeleteMapping
+		@PathMapping
+
+	
+	@RequestBody
+	@PatchVariable /{id}
+	@RequestParams ?name=t
+    @RequestHeader
+
+http://localhost:8080/customer?dni=52803357A GET
+
+-Rutas anidadas
+    
+    /pizzas/{id}/ingredients ->POST
+    /pizzas/{id}/ingredients/{ingredientId} -> DELETE
+
+-Versionado en la api
+
+    /api/pizzas->v0
+    /api/v1/pizzas->v1
+
+
+
