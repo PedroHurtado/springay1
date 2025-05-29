@@ -48,7 +48,7 @@ public class IngredientCreate {
         @Override
         public Response handler(Request req) {
             var ingredient= Ingredient.create(UUID.randomUUID(), req.name(), req.cost());
-            repository.save(ingredient);
+            repository.save(ingredient);            
             return new Response(ingredient.getId(), ingredient.getName(), ingredient.getCost());
         }
 

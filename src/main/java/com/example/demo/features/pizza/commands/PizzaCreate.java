@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.domain.Ingredient;
 import com.example.demo.domain.Pizza;
+import com.example.demo.infraestructure.IngredientRepository;
+import com.example.demo.infraestructure.PizzaRepository;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -47,13 +49,32 @@ public class PizzaCreate {
 
     @RestController 
     public class Controller{
+        
+        private final IngredientRepository ingredientRepository;
+        private final PizzaRepository repository;
+
+        public Controller(            
+            final PizzaRepository repository,
+            final IngredientRepository ingredientRepository            
+            ){
+            this.repository =repository;
+            this.ingredientRepository = ingredientRepository;
+        }
         @PostMapping("path")
         public ResponseEntity<?> postMethodName(@RequestBody Request request) { 
-            var ingredients = new HashSet<Ingredient>(  
-                              
-            );  
+
+            /*
+             * var ingredients = request.ingredients().stream()
+            		.map(id -> ingredientRepository.findByIdWithNotFound(id))
+                    .collect(Collectors.toSet());
+             * 
+             */
+            var ingredients = new HashSet<Ingredient>();  
             
-            //TODO:leer ingredients         
+            for(var id:request.ingredientes){
+                var ingredient = this.ingredientRepository.findByIdWithNotFound(id);
+                ingredients.add(ingredient);
+            }        
             
             var pizza = Pizza.create(
                 UUID.randomUUID(), 
@@ -62,7 +83,7 @@ public class PizzaCreate {
                 request.url(), 
                 ingredients);
 
-            //Save
+            repository.save(pizza);
 
             Response response =new Response(
                 pizza.getId(), 

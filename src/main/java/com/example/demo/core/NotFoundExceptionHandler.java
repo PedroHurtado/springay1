@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class NotFoundExceptionHandler {    
     @ExceptionHandler(NotFoundException.class)
     public ResponseEntity<?> handler(NotFoundException ex){
+        //logger
         return ResponseEntity.notFound().build();
     }
 }
