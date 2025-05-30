@@ -1,0 +1,32 @@
+Cors
+    Cualquier llamada fetch/xhr entre diferentes dominios es insegura
+    por definicion
+
+    fetch->
+    xmlhttprequest->
+
+    NO CORS
+        origen   http://localhost:8080
+        destino  http://localhost:8080
+    CORS
+        origen   http://localhost:8080
+        destino  http://localhost:8081
+
+    Request
+        Origin:http://localhost:8080
+    Response
+        Access-Control-Allow-Origin:http://localhost:8080 | *(no se pueden enviar cookie)
+
+        CSRF->si el dominio es no * y me autentico por cookie
+
+        En determinados escenarios y sin tu control el explorador para cada
+        request puede enviar el OPTIONS al servidor
+
+        (GET,POST,PUT,DELETE)+OPTIONS
+
+        Access-Control-Max-Age->Los segundos que quieres que se mantenga
+        la petion OPTIONS sin enviar(en cache)
+
+        https://www.w3.org/TR/2020/SPSD-cors-20200602/
+        https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CORS#preflighted_requests
+    

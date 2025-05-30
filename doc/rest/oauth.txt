@@ -1,0 +1,64 @@
+Proveedor de identidad(IDP)
+
+Oauth 2.0
+
+Proveedor de identidad   
+        Google
+        Microsoft
+        Linkedin
+        Facebook
+        Twitter
+        Github
+        etc...
+0. Registrarte en el proveedor de identidad
+    Nombre de tu app
+    url
+    redirect_uri   http://localhost:8080/auth/github
+
+    client_id
+    client_secret
+
+1. crear un formulario 
+    <form>
+    action="login/github"
+    <button type="sumit>Login con github</button>
+    </form>
+2. Envia un post al servidor
+3. Redirect a la url del proveedor de identidad
+    https://github.com/login/oauth/authorize
+
+    301
+    Location:https://github.com/login/oauth/authorize
+    client_id
+    redirect_uri
+    scope
+4. No tenemos nosotros el control
+    1. No esta autenticado->usuario and password->redirect a tu uri
+    2. Esta autenticado automaticamente redirige al redirect_uri
+
+    Si es la primera vez tienes que aceptar los scopes
+5. Redirect a tu uri->Server
+    Server->Server(IDP)
+    POST https://github.com/login/oauth/access_token
+    client_id
+    client_secret
+    code        http://localhost:8080/auth/github?code=45679999adsfdfasdf
+    redirect_uri
+
+    Accept: application/json
+    {
+    "access_token":"gho_16C7e42F292c6912E7710c838347Ae178B4a",
+    "scope":"repo,gist",
+    "token_type":"bearer"
+    }
+6. Obtener informacion del usuario
+
+    Authorization: Bearer OAUTH-TOKEN
+    GET https://api.github.com/user
+7.BB.DD y compruebas que email existe o no existe
+    No exite lo creas
+
+8. Emitir una cookie o un JWT
+
+    id,email,provider
+             github

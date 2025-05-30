@@ -1,0 +1,80 @@
+Login
+    1. User password
+    2. Oauth
+
+Identificacion de usuario(siempre reside en el cliente)
+    Cookie->Solo son validas para el explorador
+    Tokens(JWT)->Es valido para el explorador y cualquier otro consumidor
+        explorador  
+        mobile
+        server to server
+
+    1. Cookie(Seguridad)->Xss
+        {
+            POST /login
+            {
+                usuario:pedro
+                password:1234
+            }
+            301
+        }
+        Response Header
+            set-cookie
+            https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Set-Cookie
+            name,value
+            HttpOnly   x no se pueden con js
+            Secure     https 
+        Request Header
+            Cookie
+    2. Token(JWT)
+        body request(@RequestBody)
+        {
+            POST
+            {
+                usuario:'pedro'
+                password:'1234'
+            }
+        }
+        body response
+
+        {
+            token:'xxxx.yyyy.zzzz'
+        }
+        Explorador Web
+
+        localStorage
+
+            1. Codigo bloqueante
+            2. Serializacion y deserializacion de objetos
+            3. Los Worker no acceden a localStorage
+
+        IndexDb(x)
+            1. Codigo no bloqueante(asincrono)
+            2. No necesita serializacion
+            3. Los Worker pueden acceder al IndexDb
+
+        No puedo proteger ni localStorage ni IndexDb
+
+        https://www.w3.org/TR/CSP3/
+
+        jwt
+
+        eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.
+        eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.
+        SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+
+        Base64.Base64.Firma
+
+        Headers
+
+            Authorization: bearer <token>
+
+        Expiración del token
+
+        Tiempo de validez:3600
+
+        /refresh
+
+        refresh
+        jwt
+
