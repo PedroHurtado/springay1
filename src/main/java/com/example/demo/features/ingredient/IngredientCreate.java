@@ -57,7 +57,11 @@ public class IngredientCreate {
         public Response handler(Request req) {
             var ingredient= Ingredient.create(UUID.randomUUID(), req.name(), req.cost());            
             //repository.save(ingredient);            
+            //ingredient.getEvents();
+            //save eventos
             entityManager.persist(ingredient);
+            ingredient.clear();
+            
             return new Response(ingredient.getId(), ingredient.getName(), ingredient.getCost());
         }
 
