@@ -1,7 +1,10 @@
 package com.example.demo.domain;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
+import com.example.demo.core.Event;
+import java.sql.Timestamp;
 import jakarta.persistence.Entity;
 
 @Entity
@@ -30,8 +33,17 @@ public class Ingredient extends BaseEntity{
         return cost;
     }
     public static Ingredient create(UUID id,String name, Double cost){
-        //evento create
-        return new Ingredient(id, name, cost);
+        
+        var ingredient = new Ingredient(id, name, cost);
+        
+        var event = new Event(UUID.randomUUID(), 
+            Timestamp.valueOf(LocalDateTime.now()),
+            "ingredient_create", 
+            ingredient);
+            
+        ingredient.add(event);
+
+        return ingredient;
     }
     
     

@@ -1,12 +1,17 @@
 package com.example.demo.domain;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
+
+import com.example.demo.core.Event;
 
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
 
 @MappedSuperclass
 public abstract class BaseEntity {
+    private final List<Event> events = new ArrayList<>();
     @Id
     private final UUID id;
     protected BaseEntity(){
@@ -31,6 +36,19 @@ public abstract class BaseEntity {
     public int hashCode() {        
         return id.hashCode();
     }
+    public void add(Event event){
+        events.add(event);
+    }
+    public void remove(Event event){
+        events.remove(event);
+    }
+    public void clear(){
+        events.clear();
+    }
+    public List<Event> getEvents(){
+        return new ArrayList<>(events);
+    }
+
     
 }
 
